@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.Histogram;
+import view.HistogramDisplay;
 
 public class WebService {
     private final HistogramBuilder histogramBuilder;
@@ -30,6 +31,8 @@ public class WebService {
         String type = request.queryParams("dimension");
         String filter = request.queryParams("filter");
         Histogram histogram = histogramBuilder.build(type, filter);
+        String jsonString = serialize(histogram, type);
+        new HistogramDisplay(jsonString).execute();
         return serialize(histogram, type);
     }
     
